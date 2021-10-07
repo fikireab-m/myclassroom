@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:myclassroom/models/course.dart';
 
 class User {

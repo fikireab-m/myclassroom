@@ -5,7 +5,7 @@ import 'package:myclassroom/models/course.dart';
 
 class Courses with ChangeNotifier {
   List<Course> _courses = [];
-  get getCourses {
+  List<Course> get getCourses {
     return UnmodifiableListView(_courses);
   }
 
