@@ -1,4 +1,5 @@
-import '/app_theme.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import '/my_app_theme.dart';
 import 'package:flutter/material.dart';
 
 class HomeDrawer extends StatefulWidget {
@@ -39,19 +40,25 @@ class _HomeDrawerState extends State<HomeDrawer> {
         imageName: 'assets/images/supportIcon.png',
       ),
       DrawerList(
-        index: DrawerIndex.FeedBack,
-        labelName: 'FeedBack',
+        index: DrawerIndex.Settings,
+        labelName: 'Settings',
+        icon: Icon(Icons.settings),
+      ),
+      DrawerList(
+        index: DrawerIndex.Contact,
+        labelName: 'Contact Us',
         icon: Icon(Icons.help),
       ),
-      DrawerList(
-        index: DrawerIndex.Invite,
-        labelName: 'Invite Friend',
-        icon: Icon(Icons.group),
-      ),
+
       DrawerList(
         index: DrawerIndex.Share,
-        labelName: 'Rate the app',
+        labelName: 'Share',
         icon: Icon(Icons.share),
+      ),
+      DrawerList(
+        index: DrawerIndex.Rate,
+        labelName: 'Rate this app',
+        icon: Icon(Icons.app_registration),
       ),
       DrawerList(
         index: DrawerIndex.About,
@@ -64,7 +71,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppTheme.notWhite.withOpacity(0.5),
+      // backgroundColor: AppTheme.notWhite.withOpacity(0.5),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisAlignment: MainAxisAlignment.start,
@@ -99,7 +106,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
                               shape: BoxShape.circle,
                               boxShadow: <BoxShadow>[
                                 BoxShadow(
-                                    color: AppTheme.grey.withOpacity(0.6),
+                                    color: MyAppTheme.grey.withOpacity(0.6),
                                     offset: const Offset(2.0, 4.0),
                                     blurRadius: 8),
                               ],
@@ -107,7 +114,11 @@ class _HomeDrawerState extends State<HomeDrawer> {
                             child: ClipRRect(
                               borderRadius:
                                   const BorderRadius.all(Radius.circular(60.0)),
-                              child: Image.asset('assets/images/userImage.png'),
+                              child: Icon(
+                                FontAwesomeIcons.female,
+                                size: 60.0,
+                              ),
+                              // Image.asset('assets/images/userImage.png'),
                             ),
                           ),
                         ),
@@ -117,10 +128,9 @@ class _HomeDrawerState extends State<HomeDrawer> {
                   Padding(
                     padding: const EdgeInsets.only(top: 8, left: 4),
                     child: Text(
-                      'Chris Hemsworth',
+                      'Hana Cherinet',
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
-                        color: AppTheme.grey,
                         fontSize: 18,
                       ),
                     ),
@@ -134,7 +144,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
           ),
           Divider(
             height: 1,
-            color: AppTheme.grey.withOpacity(0.6),
+            color: MyAppTheme.grey.withOpacity(0.6),
           ),
           Expanded(
             child: ListView.builder(
@@ -148,7 +158,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
           ),
           Divider(
             height: 1,
-            color: AppTheme.grey.withOpacity(0.6),
+            color: MyAppTheme.grey.withOpacity(0.6),
           ),
           Column(
             children: <Widget>[
@@ -156,16 +166,13 @@ class _HomeDrawerState extends State<HomeDrawer> {
                 title: Text(
                   'Sign Out',
                   style: TextStyle(
-                    fontFamily: AppTheme.fontName,
-                    fontWeight: FontWeight.w600,
-                    fontSize: 16,
-                    color: AppTheme.darkText,
+                    fontFamily: MyAppTheme.darkTextTheme.headline3?.fontFamily,
                   ),
                   textAlign: TextAlign.left,
                 ),
                 trailing: Icon(
                   Icons.power_settings_new,
-                  color: Colors.red,
+                  color: Theme.of(context).errorColor,
                 ),
                 onTap: () {
                   onTapped();
@@ -182,7 +189,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
   }
 
   void onTapped() {
-    print('Doing Something...'); // Print to console.
+    print('Logging out ...'); // Print to console.
   }
 
   Widget inkwell(DrawerList listData) {
@@ -224,13 +231,13 @@ class _HomeDrawerState extends State<HomeDrawer> {
                           height: 24,
                           child: Image.asset(listData.imageName,
                               color: widget.screenIndex == listData.index
-                                  ? Colors.blue
-                                  : AppTheme.nearlyBlack),
+                                  ? Colors.lightBlueAccent
+                                  : MyAppTheme.nearlyWhite),
                         )
                       : Icon(listData.icon?.icon,
                           color: widget.screenIndex == listData.index
-                              ? Colors.blue
-                              : AppTheme.nearlyBlack),
+                              ? Colors.lightBlueAccent
+                              : MyAppTheme.nearlyWhite),
                   const Padding(
                     padding: EdgeInsets.all(4.0),
                   ),
@@ -240,8 +247,8 @@ class _HomeDrawerState extends State<HomeDrawer> {
                       fontWeight: FontWeight.w500,
                       fontSize: 16,
                       color: widget.screenIndex == listData.index
-                          ? Colors.blue
-                          : AppTheme.nearlyBlack,
+                          ? Colors.lightBlueAccent
+                          : MyAppTheme.nearlyWhite,
                     ),
                     textAlign: TextAlign.left,
                   ),
@@ -294,12 +301,12 @@ class _HomeDrawerState extends State<HomeDrawer> {
 
 enum DrawerIndex {
   HOME,
-  FeedBack,
   Help,
+  Settings,
+  Contact,
   Share,
+  Rate,
   About,
-  Invite,
-  Testing,
 }
 
 class DrawerList {

@@ -4,7 +4,24 @@ import 'package:flutter/material.dart';
 import 'package:myclassroom/models/course.dart';
 
 class Courses with ChangeNotifier {
-  List<Course> _courses = [];
+  List<Course> _courses = [
+    Course(
+      title: "C++ Programmig",
+      code: "c01",
+    ),
+    Course(
+      title: "Dart Programming",
+      code: "c02",
+    ),
+    Course(
+      title: "Python Programming",
+      code: "c03",
+    ),
+    Course(
+      title: "Java Programming",
+      code: "c04",
+    ),
+  ];
   List<Course> get getCourses {
     return UnmodifiableListView(_courses);
   }

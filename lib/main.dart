@@ -1,10 +1,11 @@
 import 'dart:io';
+import 'package:myclassroom/my_app_theme.dart';
 import 'package:myclassroom/pages/navigation_home_screen.dart';
-
-import '/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:myclassroom/providers/outlines.dart';
+import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,22 +20,25 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
-      statusBarIconBrightness: Brightness.dark,
+      statusBarIconBrightness: Brightness.light,
       statusBarBrightness:
-          !kIsWeb && Platform.isAndroid ? Brightness.dark : Brightness.light,
+          !kIsWeb && Platform.isAndroid ? Brightness.light : Brightness.light,
       systemNavigationBarColor: Colors.white,
       systemNavigationBarDividerColor: Colors.transparent,
       systemNavigationBarIconBrightness: Brightness.dark,
     ));
-    return MaterialApp(
-      title: 'Flutter UI',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        textTheme: AppTheme.textTheme,
-        platform: TargetPlatform.iOS,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_)=>OutlinesList())
+      ],
+      child: MaterialApp(
+        title: 'My Classroom',
+        debugShowCheckedModeBanner: false,
+        theme: MyAppTheme.dark().copyWith(
+          platform: TargetPlatform.android,
+        ),
+        home: NavigationHomeScreen(),
       ),
-      home: NavigationHomeScreen(),
     );
   }
 }

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:myclassroom/pages/navigation/home_screen.dart';
+import '/settings/my_app_settings.dart';
+import 'home/home_screen.dart';
 import '../widgets/custom_drawer/drawer_user_controller.dart';
-import '../app_theme.dart';
+import '../my_app_theme.dart';
 import '/widgets/custom_drawer/home_drawer.dart';
 import 'navigation/feedback_screen.dart';
 import 'navigation/help_screen.dart';
@@ -25,23 +26,20 @@ class _NavigationHomeScreenState extends State<NavigationHomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: AppTheme.nearlyWhite,
-      child: SafeArea(
-        top: false,
-        bottom: false,
-        child: Scaffold(
-          backgroundColor: AppTheme.nearlyWhite,
-          body: DrawerUserController(
-            screenIndex: drawerIndex,
-            drawerWidth: MediaQuery.of(context).size.width * 0.75,
-            onDrawerCall: (DrawerIndex drawerIndexdata) {
-              changeIndex(drawerIndexdata);
-              //callback from drawer for replace screen as user need with passing DrawerIndex(Enum index)
-            },
-            screenView: screenView,
-            //we replace screen view as we need on navigate starting screens like MyHomePage, HelpScreen, FeedbackScreen, etc...
-          ),
+    return SafeArea(
+      top: false,
+      bottom: false,
+      child: Scaffold(
+        backgroundColor: MyAppTheme.nearlyWhite,
+        body: DrawerUserController(
+          screenIndex: drawerIndex,
+          drawerWidth: MediaQuery.of(context).size.width * 0.75,
+          onDrawerCall: (DrawerIndex drawerIndexdata) {
+            changeIndex(drawerIndexdata);
+            //callback from drawer for replace screen as user need with passing DrawerIndex(Enum index)
+          },
+          screenView: screenView,
+          //we replace screen view as we need on navigate starting screens like MyHomePage, HelpScreen, FeedbackScreen, etc...
         ),
       ),
     );
@@ -58,11 +56,15 @@ class _NavigationHomeScreenState extends State<NavigationHomeScreen> {
         setState(() {
           screenView = HelpScreen();
         });
-      } else if (drawerIndex == DrawerIndex.FeedBack) {
+      } else if (drawerIndex == DrawerIndex.Settings) {
+        setState(() {
+          screenView = const MyAppSettings();
+        });
+      } else if (drawerIndex == DrawerIndex.Contact) {
         setState(() {
           screenView = FeedbackScreen();
         });
-      } else if (drawerIndex == DrawerIndex.Invite) {
+      } else if (drawerIndex == DrawerIndex.Share) {
         setState(() {
           screenView = InviteFriend();
         });
